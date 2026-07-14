@@ -1,0 +1,32 @@
+{
+ "artist": "SomeArtistHandle",
+ "episodes": [
+  {
+   "id": "1900000000000000001",
+   "title": "Chapter 1 — The Journey Begins",
+   "date": "2026-05-01 12:00:00",
+   "pages": [
+    {
+     "tweet_id": 1900000000000000001,
+     "num": 1,
+     "file": "1900000000000000001_1.jpg",
+     "remote": "AbCdEfGhIjKlMno",
+     "extension": "jpg",
+     "text": "Chapter 1 — The Journey Begins",
+     "date": "2026-05-01 12:00:00",
+     "url": "https://pbs.twimg.com/media/AbCdEfGhIjKlMno?format=jpg&name=orig"
+    },
+    {
+     "tweet_id": 1900000000000000002,
+     "num": 1,
+     "file": "1900000000000000002_1.jpg",
+     "remote": "PqRsTuVwXyZaBcD",
+     "extension": "jpg",
+     "text": "",
+     "date": "2026-05-01 12:05:00",
+     "url": "https://pbs.twimg.com/media/PqRsTuVwXyZaBcD?format=jpg&name=orig"
+    }
+   ]
+  }
+ ]
+}

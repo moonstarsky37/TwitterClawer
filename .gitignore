@@ -1,0 +1,26 @@
+# Git Bash 崩潰殘留
+bash.exe.stackdump
+
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+.pytest_cache/
+
+# Virtual environments
+.venv
+
+# 個人追蹤資料：只存硬碟、不進版控（修復功能讀硬碟上的 manifest 照常運作）
+# 格式範例見 artists.example.json 與 docs/examples/manifest.example.json
+/data/
+/artists.json
+
+# 產物（由 build 重新產生）——docs/index.html 是文件頁，要進版控
+/index.html
+/sites/
+
+# 內部規格（含追蹤對象細節），不隨 repo 公開
+docs/specs/

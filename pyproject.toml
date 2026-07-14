@@ -1,0 +1,26 @@
+[project]
+name = "twitterclawer"
+version = "0.1.0"
+description = "X (Twitter) 畫師圖文封存＋本地漫畫閱讀網站產生器"
+readme = "README.md"
+authors = [
+    { name = "moonstarsky37", email = "moon.starsky37@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "gallery-dl>=1.32.6",
+    "requests>=2.34.2",
+]
+
+[project.scripts]
+twitterclawer = "twitterclawer.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.10.6,<0.11.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.15.21",
+]

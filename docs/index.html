@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="only light">
+<title>TwitterClawer — User Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root { color-scheme: only light;
+          --bg:#FCFAF2; --ink:#08192D; --accent:#005CAF;
+          --dim:rgba(8,25,45,0.62); --line:rgba(8,25,45,0.14);
+          --tint:rgba(0,92,175,0.05); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--ink);
+         font-family:"Noto Sans TC","Segoe UI",-apple-system,sans-serif;
+         font-weight:400; line-height:1.9; letter-spacing:0.03em; }
+  a { color:var(--accent); text-decoration:none; }
+  a:hover { text-decoration:underline; }
+
+  header { position:sticky; top:0; z-index:9; background:var(--bg);
+           border-bottom:1px solid var(--line);
+           display:flex; justify-content:space-between; align-items:center;
+           padding:1.1rem clamp(1.2rem, 6vw, 4rem); }
+  .wordmark { font-weight:700; font-size:1rem; letter-spacing:0.08em; }
+  #langBtn { background:none; border:1px solid var(--accent); color:var(--accent);
+             border-radius:999px; padding:.3rem 1.1rem; cursor:pointer;
+             font-size:.85rem; font-family:inherit; letter-spacing:0.05em; }
+  #langBtn:hover { background:var(--tint); }
+
+  main { max-width:860px; margin:0 auto; padding:0 clamp(1.2rem, 6vw, 2rem); }
+  section { padding:140px 0 0; }
+  section:last-of-type { padding-bottom:140px; }
+  @media (max-width:720px){ section { padding-top:88px; } section:last-of-type { padding-bottom:88px; } }
+
+  .hero { padding-top:150px; }
+  .hero h1 { font-size:clamp(2.2rem, 6vw, 3.4rem); font-weight:700;
+             line-height:1.4; letter-spacing:0.06em; }
+  .hero p { margin-top:1.6rem; font-size:1.1rem; color:var(--dim); max-width:38em; }
+
+  h2 { font-size:1.5rem; font-weight:700; letter-spacing:0.08em; line-height:1.5; }
+  h2::after { content:""; display:block; width:44px; height:3px;
+              background:var(--accent); margin-top:.9rem; }
+  section > p, section > ul { margin-top:1.8rem; max-width:40em; }
+  .lead { color:var(--dim); }
+
+  ul { list-style:none; }
+  ul li { padding-left:1.3em; position:relative; margin:.5rem 0; }
+  ul li::before { content:""; position:absolute; left:0; top:.85em;
+                  width:.45em; height:.45em; border-radius:50%; background:var(--accent); }
+
+  table { width:100%; border-collapse:collapse; margin-top:2rem; }
+  th, td { text-align:left; padding:.9rem .6rem; border-bottom:1px solid var(--line); }
+  th { color:var(--dim); font-weight:500; font-size:.85rem; letter-spacing:0.06em; }
+  code, kbd { background:var(--tint); color:var(--accent); border-radius:6px;
+              padding:.12rem .5rem; font-family:Consolas, monospace; font-size:.9em; }
+
+  .note { border-left:3px solid var(--accent); background:var(--tint);
+          border-radius:0 10px 10px 0; padding:1.4rem 1.6rem; margin-top:2rem;
+          max-width:44em; }
+  .note p { max-width:none; }
+
+  figure { margin-top:2.5rem; }
+  figure img { width:100%; display:block; border-radius:12px;
+               border:1px solid var(--line); }
+  figure.shot img { box-shadow:0 12px 32px rgba(8,25,45,0.10); }
+  figcaption { margin-top:1rem; font-size:.85rem; color:var(--dim);
+               letter-spacing:0.05em; }
+
+  details { border:1px solid var(--line); border-radius:10px;
+            padding:1.1rem 1.4rem; margin-top:1rem; max-width:44em; }
+  details[open] { border-color:var(--accent); }
+  summary { cursor:pointer; font-weight:500; letter-spacing:0.04em; }
+  details p { margin-top:.9rem; color:var(--dim); }
+
+  footer { border-top:1px solid var(--line); padding:2.5rem 0 3.5rem;
+           text-align:center; color:var(--dim); font-size:.85rem; letter-spacing:0.05em; }
+
+  body.lang-en .zh { display:none; }
+  body.lang-zh .en { display:none; }
+</style>
+</head>
+<body class="lang-en">
+<header>
+  <div class="wordmark">TwitterClawer</div>
+  <button id="langBtn" onclick="toggleLang()">中文</button>
+</header>
+<main>
+
+<section class="hero">
+  <h1><span class="en">Read your favorite X artists like a real comic.</span>
+      <span class="zh">把追的 X 圖文作家，讀成一本真正的漫畫。</span></h1>
+  <p><span class="en">TwitterClawer archives every image an artist posts on X, rebuilds scattered posts into chapters, and serves them as an offline reader on your own machine.</span>
+     <span class="zh">TwitterClawer 封存作家在 X 上發過的所有圖片，把散落的貼文重組成章節，在你自己的電腦上生成離線閱讀器。</span></p>
+</section>
+
+<section>
+  <h2><span class="en">Why this exists</span><span class="zh">為什麼需要它</span></h2>
+  <p class="lead">
+    <span class="en">Comic series on X are scattered across hundreds of posts, in reverse order, buried in a timeline. This tool turns them back into books — readable offline, in order, and safe from deleted posts.</span>
+    <span class="zh">X 上的連載散落在幾百則貼文裡、順序顛倒、埋在時間軸中。這個工具把它們變回一本書——離線、按順序閱讀，貼文被刪也不怕。</span></p>
+</section>
+
+<section>
+  <h2><span class="en">Is it safe?</span><span class="zh">安全嗎？</span></h2>
+  <div class="note">
+    <p><span class="en">The tool borrows the "already logged in" ticket — a session cookie — from your Firefox, the same thing your browser sends to x.com on every visit. It never reads your passwords: Firefox keeps those in separate encrypted files this tool does not open. It talks only to <code>x.com</code> and <code>twimg.com</code>.</span>
+       <span class="zh">工具只借用 Firefox 裡「已經登入」的憑證（session cookie）——跟瀏覽器每次開 x.com 送出的東西一模一樣。它絕不讀你的密碼：密碼存在另外的加密檔案裡，本工具完全不會開啟。連線對象只有 <code>x.com</code> 與 <code>twimg.com</code>。</span></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="en">What you need</span><span class="zh">你需要什麼</span></h2>
+  <ul>
+    <li><span class="en">Windows with <a href="https://docs.astral.sh/uv/">uv</a> installed — it manages Python for you.</span>
+        <span class="zh">Windows，裝好 <a href="https://docs.astral.sh/uv/">uv</a>——它會替你管理 Python。</span></li>
+    <li><span class="en">Firefox, already logged in to x.com.</span>
+        <span class="zh">Firefox，且已登入 x.com。</span></li>
+  </ul>
+</section>
+
+<section>
+  <h2><span class="en">Everyday use — four double-clicks</span><span class="zh">日常使用——四個雙擊</span></h2>
+  <table>
+    <tr><th><span class="en">When you want to</span><span class="zh">想要</span></th>
+        <th><span class="en">Double-click</span><span class="zh">雙擊</span></th></tr>
+    <tr><td><span class="en">Follow a new artist — paste their profile URL</span>
+            <span class="zh">追蹤新作家——貼上作者頁網址</span></td>
+        <td><code>add-artist.bat</code></td></tr>
+    <tr><td><span class="en">First full download — long, safe to interrupt and re-run</span>
+            <span class="zh">第一次全量下載——會跑很久，中斷重跑會接著抓</span></td>
+        <td><code>first-download.bat</code></td></tr>
+    <tr><td><span class="en">Grab new posts after an artist updates</span>
+            <span class="zh">作家發新作後抓新貼文</span></td>
+        <td><code>update.bat</code></td></tr>
+    <tr><td><span class="en">Restore deleted or corrupted files</span>
+            <span class="zh">修復誤刪或損毀的檔案</span></td>
+        <td><code>repair.bat</code></td></tr>
+  </table>
+  <p><span class="en">Then open <code>index.html</code>: pick an artist, pick a chapter, scroll. Keys: <kbd>←</kbd> older chapter, <kbd>→</kbd> newer chapter, <kbd>Esc</kbd> back to the list.</span>
+     <span class="zh">然後打開 <code>index.html</code>：點作家、選一話、往下捲。快捷鍵：<kbd>←</kbd> 上一話（較舊）、<kbd>→</kbd> 下一話（較新）、<kbd>Esc</kbd> 回目錄。</span></p>
+  <figure class="shot">
+    <img src="img/overview.png" alt="Artist overview page">
+    <figcaption><span class="en">The overview page — one card per tracked artist.</span>
+                <span class="zh">總覽頁——每位追蹤中的作家一張卡片。</span></figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2><span class="en">How it works</span><span class="zh">運作原理</span></h2>
+  <p class="lead">
+    <span class="en">Each artist gets a fully separate folder and reader page. The chapter index is version-controlled, so even if image files are lost, repair knows exactly what to re-download.</span>
+    <span class="zh">每位作家都有完全獨立的資料夾與閱讀頁。章節目錄有進版本控制，就算圖檔遺失，修復功能也確切知道該補回什麼。</span></p>
+  <figure>
+    <img src="architecture.svg" alt="Software architecture diagram">
+  </figure>
+</section>
+
+<section>
+  <h2><span class="en">Troubleshooting</span><span class="zh">疑難排解</span></h2>
+  <details>
+    <summary><span class="en">Download stops or errors mid-run</span><span class="zh">下載中途停住或報錯</span></summary>
+    <p><span class="en">X sometimes rate-limits heavy fetching. The tool already goes slowly on purpose; just re-run the same file — finished downloads are never repeated.</span>
+       <span class="zh">X 有時會限速。工具本來就刻意放慢；直接重跑同一個檔案即可——抓過的不會重抓。</span></p>
+  </details>
+  <details>
+    <summary><span class="en">"Login required" or empty results</span><span class="zh">顯示需要登入或抓不到東西</span></summary>
+    <p><span class="en">Make sure Firefox is logged in to x.com. If your login lives in a non-default profile: <code>uv run twitterclawer update --profile YOUR_PROFILE</code></span>
+       <span class="zh">確認 Firefox 已登入 x.com。若登入不在預設設定檔：<code>uv run twitterclawer update --profile 設定檔名稱</code></span></p>
+  </details>
+  <details>
+    <summary><span class="en">X changed its site and downloads break</span><span class="zh">X 改版導致下載失效</span></summary>
+    <p><span class="en">Update the download engine, then re-run: <code>uv lock --upgrade-package gallery-dl</code></span>
+       <span class="zh">升級下載引擎後重跑：<code>uv lock --upgrade-package gallery-dl</code></span></p>
+  </details>
+  <details>
+    <summary><span class="en">Update just one artist</span><span class="zh">只更新其中一位作家</span></summary>
+    <p><code>uv run twitterclawer update --artist HANDLE</code></p>
+  </details>
+</section>
+
+<section>
+  <h2><span class="en">A note on copyright</span><span class="zh">版權提醒</span></h2>
+  <p class="lead">
+    <span class="en">Everything you download belongs to the artists. This tool exists for personal offline reading — like saving pages for yourself. Do not republish the images or the generated pages, and support the artists you follow.</span>
+    <span class="zh">下載的內容版權屬於作家本人。本工具僅供個人離線閱讀——如同自己另存頁面。請勿轉載圖片或生成的頁面，並記得支持你追的作家。</span></p>
+</section>
+
+</main>
+<footer>
+  <span class="en">TwitterClawer — a local, personal archiving tool.</span>
+  <span class="zh">TwitterClawer——本地端個人封存工具。</span>
+</footer>
+<script>
+function toggleLang(){
+  const b = document.body, btn = document.getElementById("langBtn");
+  const zh = b.classList.toggle("lang-zh");
+  b.classList.toggle("lang-en", !zh);
+  btn.textContent = zh ? "English" : "中文";
+  document.documentElement.lang = zh ? "zh-Hant" : "en";
+  try { localStorage.setItem("tc-lang", zh ? "zh" : "en"); } catch(e){}
+}
+try { if (localStorage.getItem("tc-lang") === "zh") toggleLang(); } catch(e){}
+</script>
+</body>
+</html>
